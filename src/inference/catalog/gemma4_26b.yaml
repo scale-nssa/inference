@@ -1,0 +1,8 @@
+nickname: gemma4_26b
+name: Gemma 4 26B A4B
+provider: lm_studio
+model_name: google/gemma-4-26b-a4b
+thinking: false
+ctx_length: 262144
+system_role: system
+thinking_style: none

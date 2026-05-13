@@ -1,0 +1,8 @@
+nickname: qwen3_14b_mlx
+name: Qwen3 14B (MLX)
+provider: lm_studio
+model_name: qwen3-14b-mlx
+thinking: false
+ctx_length: 40960
+system_role: system
+thinking_style: think_tag

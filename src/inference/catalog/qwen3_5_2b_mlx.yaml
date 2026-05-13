@@ -1,0 +1,8 @@
+nickname: qwen3_5_2b_mlx
+name: Qwen3.5 2B (MLX)
+provider: lm_studio
+model_name: mlx-community/qwen3.5-2b
+thinking: false
+ctx_length: 262144
+system_role: system
+thinking_style: think_tag

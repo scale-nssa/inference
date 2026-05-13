@@ -1,0 +1,8 @@
+nickname: qwen3_5_2b_lms
+name: Qwen3.5 2B (lmstudio-community)
+provider: lm_studio
+model_name: lmstudio-community/qwen3.5-2b
+thinking: false
+ctx_length: 262144
+system_role: system
+thinking_style: think_tag

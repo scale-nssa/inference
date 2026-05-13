@@ -1,0 +1,8 @@
+nickname: qwen3_5_0_8b_mlx
+name: Qwen3.5 0.8B (MLX)
+provider: lm_studio
+model_name: qwen3.5-0.8b-mlx
+thinking: false
+ctx_length: 262144
+system_role: system
+thinking_style: think_tag

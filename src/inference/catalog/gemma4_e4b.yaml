@@ -1,0 +1,8 @@
+nickname: gemma4_e4b
+name: Gemma 4 E4B Instruct
+provider: lm_studio
+model_name: gemma-4-e4b-it
+thinking: false
+ctx_length: 131072
+system_role: system
+thinking_style: none

@@ -1,0 +1,8 @@
+nickname: gemini_3_flash
+name: Gemini 3 Flash
+provider: gemini_vertex
+model_name: gemini-3-flash-preview
+thinking: true
+ctx_length: 1000000
+project_id: gcp-nssa-ml
+location: global
