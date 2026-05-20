@@ -1,0 +1,8 @@
+nickname: claude_sonnet_4_6
+name: Claude Sonnet 4.6
+provider: claude_vertex
+model_name: claude-sonnet-4-6
+thinking: true
+ctx_length: 200000
+project_id: gcp-nssa-ml
+location: global
