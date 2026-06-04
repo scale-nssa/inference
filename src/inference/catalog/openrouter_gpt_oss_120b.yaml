@@ -1,0 +1,12 @@
+nickname: openrouter_gpt_oss_120b
+name: OpenRouter GPT-OSS 120B
+provider: openrouter
+model_name: openai/gpt-oss-120b
+thinking: true
+ctx_length: 131000
+temperature: 0.0
+pricing:
+  input: "$0.039 per 1M tokens"
+  output: "$0.18 per 1M tokens"
+source_url: https://openrouter.ai/openai/gpt-oss-120b
+notes: "OpenRouter lists context as 131K and release date as Aug 5, 2025."

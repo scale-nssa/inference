@@ -1,0 +1,8 @@
+nickname: deepseek_r1_qwen3_8b
+name: DeepSeek-R1-0528 Distill Qwen3 8B
+provider: lm_studio
+model_name: deepseek/deepseek-r1-0528-qwen3-8b
+thinking: true
+ctx_length: 131072
+system_role: system
+thinking_style: think_tag

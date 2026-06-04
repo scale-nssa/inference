@@ -57,12 +57,15 @@ class LMStudioModel(Model):
             messages.append({"role": self.system_role, "content": prompt.system_prompt})
         messages.append({"role": "user", "content": prompt.model_prompt})
 
-        response = client.chat.completions.create(
-            model=self.model_name,
-            messages=messages,
-            temperature=settings.temperature,
-            max_tokens=settings.max_tokens,
-        )
+        request_kwargs = {
+            "model": self.model_name,
+            "messages": messages,
+            "temperature": settings.temperature,
+        }
+        if settings.max_tokens is not None:
+            request_kwargs["max_tokens"] = settings.max_tokens
+
+        response = client.chat.completions.create(**request_kwargs)
 
         message = response.choices[0].message
         content = message.content or ""

@@ -14,20 +14,36 @@ class ClaudeVertexModel(Model):
     location: str = "global"
     thinking_budget: int = 1024
 
+    def thinking_config(self, max_tokens: int | None) -> dict | None:
+        if max_tokens is None:
+            raise ValueError("Claude Vertex requests require max_tokens")
+        if not self.thinking:
+            return None
+        if max_tokens <= self.thinking_budget:
+            raise ValueError(
+                "Claude extended thinking requires max_tokens to be greater than "
+                f"thinking_budget; got max_tokens={max_tokens}, "
+                f"thinking_budget={self.thinking_budget}"
+            )
+        return {
+            "type": "enabled",
+            "budget_tokens": self.thinking_budget,
+        }
+
     def _call(self, prompt: Prompt, settings: InferenceSettings) -> LLMOutput:
         client = AnthropicVertex(project_id=self.project_id, region=self.location)
 
         request_kwargs: dict = {
             "model": self.model_name,
-            "max_tokens": settings.max_tokens,
             "system": prompt.system_prompt or "",
             "messages": [{"role": "user", "content": prompt.model_prompt}],
         }
-        if self.thinking:
-            request_kwargs["thinking"] = {
-                "type": "enabled",
-                "budget_tokens": self.thinking_budget,
-            }
+        if settings.max_tokens is None:
+            raise ValueError("Claude Vertex requests require max_tokens")
+        request_kwargs["max_tokens"] = settings.max_tokens
+        thinking_config = self.thinking_config(settings.max_tokens)
+        if thinking_config is not None:
+            request_kwargs["thinking"] = thinking_config
         else:
             request_kwargs["temperature"] = settings.temperature
 

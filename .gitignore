@@ -1,0 +1,19 @@
+CLAUDE.md
+benchmark/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environment
+.venv/
+
+# Batch job handles (README pattern: persisted job IDs)
+*.job_id
+
+# OS / editor cruft
+.DS_Store

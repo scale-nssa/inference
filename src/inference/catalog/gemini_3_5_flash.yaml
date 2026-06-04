@@ -4,5 +4,6 @@ provider: gemini_vertex
 model_name: gemini-3.5-flash
 thinking: true
 ctx_length: 1000000
+temperature: 0.0
 project_id: gcp-nssa-ml
 location: global

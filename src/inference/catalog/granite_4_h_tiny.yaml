@@ -1,0 +1,8 @@
+nickname: granite_4_h_tiny
+name: IBM Granite 4 H Tiny
+provider: lm_studio
+model_name: ibm/granite-4-h-tiny
+thinking: false
+ctx_length: 131072
+system_role: system
+thinking_style: none

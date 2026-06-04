@@ -1,0 +1,12 @@
+nickname: openrouter_gemma_4_31b_it
+name: OpenRouter Gemma 4 31B Instruct
+provider: openrouter
+model_name: google/gemma-4-31b-it
+thinking: true
+ctx_length: 262000
+temperature: 0.0
+pricing:
+  input: "$0.12 per 1M tokens"
+  output: "$0.37 per 1M tokens"
+source_url: https://openrouter.ai/google/gemma-4-31b-it
+notes: "OpenRouter lists context as 262K and release date as Apr 2, 2026."

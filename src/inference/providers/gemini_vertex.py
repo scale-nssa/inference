@@ -21,11 +21,13 @@ class GeminiVertexModel(Model):
             location=self.location,
         )
 
-        config = GenerateContentConfig(
-            temperature=settings.temperature,
-            max_output_tokens=settings.max_tokens,
-            system_instruction=prompt.system_prompt or None,
-        )
+        config_kwargs = {
+            "temperature": settings.temperature,
+            "system_instruction": prompt.system_prompt or None,
+        }
+        if settings.max_tokens is not None:
+            config_kwargs["max_output_tokens"] = settings.max_tokens
+        config = GenerateContentConfig(**config_kwargs)
         if self.thinking:
             config.thinking_config = ThinkingConfig(include_thoughts=True)
 

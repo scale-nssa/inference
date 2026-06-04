@@ -1,0 +1,18 @@
+nickname: openrouter_gpt_oss_120b_cerebras
+name: OpenRouter GPT-OSS 120B (Cerebras)
+provider: openrouter
+model_name: openai/gpt-oss-120b
+thinking: true
+ctx_length: 131000
+temperature: 0.0
+extra_body:
+  provider:
+    only:
+      - cerebras
+    allow_fallbacks: false
+pricing:
+  input: "$0.35 per 1M tokens"
+  output: "$0.75 per 1M tokens"
+  cache_read: "$0.35 per 1M tokens"
+source_url: https://openrouter.ai/openai/gpt-oss-120b/providers
+notes: "Same model as openrouter_gpt_oss_120b but pinned to the Cerebras provider only (no fallbacks). Live per-call cost is returned by OpenRouter in usage.cost."

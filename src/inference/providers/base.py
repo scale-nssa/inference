@@ -19,7 +19,7 @@ class Model(BaseModel, ABC):
     ctx_length: int
 
     temperature: float = 0.8
-    max_tokens: int = 8192
+    max_tokens: int | None = None
 
     def _settings(
         self,
@@ -50,6 +50,42 @@ class Model(BaseModel, ABC):
         max_tokens: int | None = None,
     ) -> LLMOutput:
         return self._call(prompt, self._settings(temperature, max_tokens))
+
+    def batch_submit(
+        self,
+        prompts: list[Prompt],
+        *,
+        job_name: str | None = None,
+    ) -> str:
+        from ..batch import batch_submit
+
+        return batch_submit(self, prompts, job_name=job_name)
+
+    def batch_status(self, job_id: str):
+        from ..batch import batch_status
+
+        return batch_status(self, job_id)
+
+    def batch_collect(self, job_id: str):
+        from ..batch import batch_collect
+
+        return batch_collect(self, job_id)
+
+    def batch(
+        self,
+        prompts: list[Prompt],
+        *,
+        job_name: str | None = None,
+        poll_interval: float = 30.0,
+    ):
+        from ..batch import batch
+
+        return batch(
+            self,
+            prompts,
+            job_name=job_name,
+            poll_interval=poll_interval,
+        )
 
     @abstractmethod
     def _call(self, prompt: Prompt, settings: InferenceSettings) -> LLMOutput:

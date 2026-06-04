@@ -1,0 +1,8 @@
+nickname: olmo3_7b
+name: OLMo 3 7B Think
+provider: lm_studio
+model_name: atlas-olmo-3-7b-think-v4
+thinking: true
+ctx_length: 65536
+system_role: system
+thinking_style: think_tag
