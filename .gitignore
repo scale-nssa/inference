@@ -1,5 +1,5 @@
 CLAUDE.md
-benchmark/
+benchmarks/
 
 # Python bytecode
 __pycache__/
