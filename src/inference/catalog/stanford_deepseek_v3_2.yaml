@@ -1,0 +1,18 @@
+nickname: stanford_deepseek_v3_2
+name: DeepSeek-V3.2 (Stanford AI API Gateway)
+provider: stanford
+model_name: DeepSeek-V3.2
+thinking: false
+ctx_length: 128000
+temperature: 0.0
+pricing:
+  input: "$0.00 per 1M tokens"
+  output: "$0.00 per 1M tokens"
+source_url: https://aiapi-prod.stanford.edu/v1/models
+params_b: 671
+active_params_b: 37
+verified: 2026-11-03
+notes: >-
+  Billed at $0 as of 2026-10-02, but the gateway publishes no DeepSeek rate, so this may
+  change. Runs in non-thinking chat mode. The gateway caches responses: an identical
+  request returns the stored reply instead of a new sample.

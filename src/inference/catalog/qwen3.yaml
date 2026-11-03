@@ -1,8 +1,0 @@
-nickname: qwen3
-name: Qwen3
-provider: lm_studio
-model_name: qwen/qwen3-4b-thinking-2507-mlx
-thinking: true
-ctx_length: 32768
-system_role: system
-thinking_style: think_tag

@@ -1,0 +1,18 @@
+nickname: gemini_4_argon
+name: Gemini 4 Argon
+provider: gemini_vertex
+model_name: gemini-4-argon
+thinking: true
+thinking_level: MEDIUM
+ctx_length: 1048576
+temperature: 0.0
+project_id: gcp-nssa-ml
+location: global
+pricing:
+  input: "$2.00 per 1M tokens"
+  output: "$10.00 per 1M tokens"
+source_url: https://cloud.google.com/vertex-ai/generative-ai/pricing
+verified: 2026-11-03
+notes: >-
+  Pricing shown is introductory and runs through 2026-11-30. List price after that is
+  $4.00 per 1M input tokens and $20.00 per 1M output tokens. Ignores temperature.

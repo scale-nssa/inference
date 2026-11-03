@@ -16,15 +16,41 @@ from google.cloud.aiplatform_v1.types import (
     GcsSource,
     JobState,
 )
-from pydantic import BaseModel, ConfigDict
-
+from .batch_types import (
+    BatchError,
+    BatchJobFailedError,
+    BatchStatus,
+    JobFailed,
+    JobRunning,
+    JobSucceeded,
+)
 from .prompt import Prompt
-from .provider_responses import AnthropicMessageResponse, GeminiGenerateResponse
+from .provider_responses import (
+    AnthropicMessageResponse,
+    GeminiGenerateResponse,
+    OpenAICompletionResponse,
+)
 from .providers.claude_vertex import ClaudeVertexModel
 from .providers.gemini_vertex import GeminiVertexModel
+from .providers.gpt_oss_vertex import GptOssVertexModel
 from .response import LLMOutput
 from .settings import InferenceSettings
 from .token_stats import TokenStats
+
+__all__ = [
+    "BatchError",
+    "BatchJobFailedError",
+    "BatchStatus",
+    "JobFailed",
+    "JobRunning",
+    "JobSucceeded",
+    "batch",
+    "batch_collect",
+    "batch_status",
+    "batch_submit",
+    "format_input_jsonl",
+    "parse_output_jsonl",
+]
 
 _BATCH_BUCKET_ENV = "INFERENCE_BATCH_GCS_BUCKET"
 _BATCH_LOCATION_ENV = "INFERENCE_BATCH_VERTEX_LOCATION"
@@ -50,56 +76,8 @@ _TRANSIENT_GOOGLE_ERRORS = (
 )
 
 
-class BatchError(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    prompt: Prompt
-    index: int
-    request_id: str
-    status: str
-    response: dict[str, Any] | None = None
-
-
-class JobRunning(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    state: Literal["running"] = "running"
-    job_id: str
-    provider_state: str
-    successful_count: int = 0
-    failed_count: int = 0
-
-
-class JobSucceeded(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    state: Literal["succeeded"] = "succeeded"
-    job_id: str
-    provider_state: str
-    successful_count: int = 0
-    failed_count: int = 0
-
-
-class JobFailed(BaseModel):
-    model_config = ConfigDict(frozen=True)
-
-    state: Literal["failed"] = "failed"
-    job_id: str
-    provider_state: str
-    successful_count: int = 0
-    failed_count: int = 0
-    error: str | None = None
-
-
-BatchStatus = JobRunning | JobSucceeded | JobFailed
-
-
-class BatchJobFailedError(RuntimeError):
-    pass
-
-
 def batch_submit(
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     prompts: list[Prompt],
     *,
     job_name: str | None = None,
@@ -142,7 +120,7 @@ def batch_submit(
 
 
 def batch_status(
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     job_id: str,
 ) -> BatchStatus:
     job = _get_job(model, job_id)
@@ -176,7 +154,7 @@ def batch_status(
 
 
 def batch_collect(
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     job_id: str,
     prompts: list[Prompt] | None = None,
 ) -> list[LLMOutput | BatchError]:
@@ -198,7 +176,7 @@ def batch_collect(
 
 
 def batch(
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     prompts: list[Prompt],
     *,
     job_name: str | None = None,
@@ -215,9 +193,9 @@ def batch(
 
 def format_input_jsonl(
     *,
-    provider: Literal["claude_vertex", "gemini_vertex"],
+    provider: Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"],
     prompts: list[Prompt],
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     settings: InferenceSettings,
 ) -> bytes:
     rows = [
@@ -237,7 +215,7 @@ def format_input_jsonl(
 
 def parse_output_jsonl(
     *,
-    provider: Literal["claude_vertex", "gemini_vertex"],
+    provider: Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"],
     prompts: list[Prompt],
     lines: Iterable[str],
 ) -> list[LLMOutput | BatchError]:
@@ -275,6 +253,8 @@ def parse_output_jsonl(
             parsed[index] = _anthropic_output(prompt, response)
         elif provider == "gemini_vertex":
             parsed[index] = _gemini_output(prompt, response)
+        elif provider == "gpt_oss_vertex":
+            parsed[index] = _gpt_oss_output(prompt, response)
         else:
             raise ValueError(f"unsupported batch provider {provider!r}")
 
@@ -287,10 +267,10 @@ def parse_output_jsonl(
 
 def _format_request(
     *,
-    provider: Literal["claude_vertex", "gemini_vertex"],
+    provider: Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"],
     prompt: Prompt,
     index: int,
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     settings: InferenceSettings,
 ) -> dict[str, Any]:
     request_id = _request_id(index)
@@ -306,7 +286,10 @@ def _format_request(
         thinking_config = model.thinking_config(settings.max_tokens)
         if thinking_config is not None:
             request["thinking"] = thinking_config
-        else:
+            output_config = model.output_config()
+            if output_config is not None:
+                request["output_config"] = output_config
+        elif model.send_temperature:
             request["temperature"] = settings.temperature
         return {"custom_id": request_id, "request": request}
 
@@ -318,6 +301,10 @@ def _format_request(
             generation_config["maxOutputTokens"] = settings.max_tokens
         if model.thinking:
             generation_config["thinkingConfig"] = {"includeThoughts": True}
+            if model.thinking_level is not None:
+                generation_config["thinkingConfig"]["thinkingLevel"] = (
+                    model.thinking_level.value
+                )
         request = {
             "contents": [
                 {
@@ -333,6 +320,28 @@ def _format_request(
                 "parts": [{"text": prompt.system_prompt}],
             }
         return {"custom_id": request_id, "request": request}
+
+    if provider == "gpt_oss_vertex":
+        # OpenAI chat/completions shape, matching what GptOssVertexModel sends
+        # synchronously -- including `model`, which the MaaS batch endpoint requires in the
+        # body (unlike the Claude and Gemini paths, where the model is carried only by the
+        # job's publisher_model).
+        messages: list[dict[str, str]] = []
+        if prompt.system_prompt:
+            messages.append({"role": model.system_role, "content": prompt.system_prompt})
+        messages.append({"role": "user", "content": prompt.model_prompt})
+        request = {"model": model.model_name, "messages": messages}
+        if model.send_temperature:
+            request["temperature"] = settings.temperature
+        if settings.max_tokens is not None:
+            request["max_tokens"] = settings.max_tokens
+        if model.thinking and model.reasoning_effort is not None:
+            request["reasoning_effort"] = model.reasoning_effort
+        # "body", NOT "request". The MaaS path follows the OpenAI Batch API convention,
+        # while the Claude and Gemini Vertex paths above use "request". Getting this wrong
+        # does not fail at submit -- the job is created, runs, and then FAILS with
+        # "The lines in the specified input JSONL file must contain the \"body\" property."
+        return {"custom_id": request_id, "body": request}
 
     raise ValueError(f"unsupported batch provider {provider!r}")
 
@@ -384,21 +393,65 @@ def _gemini_output(prompt: Prompt, response: dict[str, Any]) -> LLMOutput:
     )
 
 
+def _gpt_oss_output(prompt: Prompt, response: dict[str, Any]) -> LLMOutput:
+    """OpenAI chat/completions batch row -> LLMOutput.
+
+    thinking_tokens is deliberately None, mirroring GptOssVertexModel._call: OpenAI-shaped
+    responses already count reasoning inside usage.completion_tokens, so also reporting the
+    completion_tokens_details.reasoning_tokens breakout would make ModelCard.cost (input +
+    output + thinking) bill reasoning twice. The count stays on provider_response. Keep the
+    two paths in step.
+    """
+    provider_response = OpenAICompletionResponse.model_validate(response)
+    choice = provider_response.choices[0] if provider_response.choices else None
+    message = choice.message if choice else None
+    usage = provider_response.usage
+    # Reasoning TEXT is read off the RAW dict, not the typed model. OpenAIMessage declares
+    # `reasoning` but not `reasoning_content`, and sets extra="ignore" -- so a LiteLLM-style
+    # gateway's reasoning_content is silently dropped by model_validate. The synchronous
+    # path (OpenAICompatModel._call) reads the SDK object, which carries both, so relying on
+    # the typed model here would lose chain-of-thought on the batch path only.
+    raw_message: dict[str, Any] = {}
+    raw_choices = response.get("choices")
+    if isinstance(raw_choices, list) and raw_choices and isinstance(raw_choices[0], dict):
+        candidate = raw_choices[0].get("message")
+        if isinstance(candidate, dict):
+            raw_message = candidate
+    return LLMOutput(
+        prompt=prompt,
+        text=(getattr(message, "content", None) or "") if message else "",
+        thinking=raw_message.get("reasoning") or raw_message.get("reasoning_content"),
+        tokens=TokenStats(
+            input_tokens=(usage.prompt_tokens if usage else None) or 0,
+            output_tokens=(usage.completion_tokens if usage else None) or 0,
+            thinking_tokens=None,
+        ),
+        provider_response=provider_response,
+    )
+
+
 def _write_input_jsonl(
     *,
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     prompts: list[Prompt],
     settings: InferenceSettings,
-    provider: Literal["claude_vertex", "gemini_vertex"],
+    provider: Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"],
     job_key: str,
 ) -> tuple[str, str]:
     bucket_name, prefix = _bucket_and_prefix()
     base_prefix = "/".join(part for part in [prefix, job_key] if part)
     input_name = f"{base_prefix}/input/requests.jsonl"
     output_uri = f"gs://{bucket_name}/{base_prefix}/output"
-    storage.Client(project=model.project_id).bucket(bucket_name).blob(input_name).upload_from_string(
+    blob = storage.Client(project=model.project_id).bucket(bucket_name).blob(input_name)
+    # Resumable upload in small pieces so a flaky connection only retries the dropped piece,
+    # not the whole file, with a short per-piece timeout so a stalled link fails fast and
+    # retries instead of hanging. Tunable with INFERENCE_UPLOAD_CHUNK_BYTES and
+    # INFERENCE_UPLOAD_TIMEOUT.
+    blob.chunk_size = int(os.environ.get("INFERENCE_UPLOAD_CHUNK_BYTES", str(256 * 1024)))
+    blob.upload_from_string(
         format_input_jsonl(provider=provider, prompts=prompts, model=model, settings=settings),
         content_type="application/jsonl",
+        timeout=float(os.environ.get("INFERENCE_UPLOAD_TIMEOUT", "60")),
     )
     return f"gs://{bucket_name}/{input_name}", output_uri
 
@@ -432,13 +485,13 @@ def _read_gs_jsonl_uri(uri: str) -> list[str]:
     return [line for line in text.splitlines() if line.strip()]
 
 
-def _get_job(model: ClaudeVertexModel | GeminiVertexModel, job_id: str) -> BatchPredictionJob:
+def _get_job(model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel, job_id: str) -> BatchPredictionJob:
     location = _location_from_job_id(job_id) or _batch_location(model)
     return _job_client(location).get_batch_prediction_job(name=job_id)
 
 
 def _wait_for_terminal(
-    model: ClaudeVertexModel | GeminiVertexModel,
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
     job_id: str,
     *,
     poll_interval: float,
@@ -470,26 +523,43 @@ def _job_client(location: str) -> aiplatform_v1.JobServiceClient:
 
 
 def _provider_name(
-    model: ClaudeVertexModel | GeminiVertexModel,
-) -> Literal["claude_vertex", "gemini_vertex"]:
+    model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel,
+) -> Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"]:
     if isinstance(model, ClaudeVertexModel):
         return "claude_vertex"
     if isinstance(model, GeminiVertexModel):
         return "gemini_vertex"
-    raise NotImplementedError("batch inference is only supported for Vertex Claude and Gemini models")
+    if isinstance(model, GptOssVertexModel):
+        return "gpt_oss_vertex"
+    raise NotImplementedError(
+        "batch inference is only supported for Vertex Claude, Gemini and GPT-OSS models"
+    )
 
 
-def _publisher_model(provider: Literal["claude_vertex", "gemini_vertex"], model_name: str) -> str:
+def _publisher_model(
+    provider: Literal["claude_vertex", "gemini_vertex", "gpt_oss_vertex"], model_name: str
+) -> str:
+    if provider == "gpt_oss_vertex":
+        # The catalog model_name is the serving id "openai/gpt-oss-120b-maas", which already
+        # carries its publisher. Pasting that into the template would yield the malformed
+        # "publishers/openai/models/openai/gpt-oss-120b-maas", so strip the prefix.
+        bare = model_name.split("/", 1)[-1]
+        return f"publishers/openai/models/{bare}"
     publisher = "anthropic" if provider == "claude_vertex" else "google"
     return f"publishers/{publisher}/models/{model_name}"
 
 
-def _batch_location(model: ClaudeVertexModel | GeminiVertexModel) -> str:
+def _batch_location(model: ClaudeVertexModel | GeminiVertexModel | GptOssVertexModel) -> str:
     override = os.environ.get(_BATCH_LOCATION_ENV)
     if override:
         return override
     if isinstance(model, ClaudeVertexModel) and model.location == "global":
         return "us-east5"
+    if isinstance(model, GptOssVertexModel):
+        # MaaS batch is not served from "global" (which synchronous calls use) or
+        # us-east5; both return 404 "The PublisherModel gpt-oss-120b-maas does not
+        # exist." us-central1 accepts the job.
+        return "us-central1"
     return model.location
 
 

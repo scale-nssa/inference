@@ -1,7 +1,0 @@
-nickname: openrouter_auto
-name: OpenRouter Auto
-provider: openrouter
-model_name: openrouter/auto
-thinking: false
-ctx_length: 200000
-temperature: 0.0

@@ -7,6 +7,8 @@ from .batch import (
     JobRunning,
     JobSucceeded,
 )
+from .logprobs import TokenLogprob, TopLogprob
+from .model_card import ModelCard
 from .prompt import Prompt
 from .response import LLMOutput, Response
 from .providers.base import Model
@@ -23,8 +25,11 @@ __all__ = [
     "JobSucceeded",
     "LLMOutput",
     "Model",
+    "ModelCard",
     "Prompt",
     "Response",
+    "TokenLogprob",
     "TokenStats",
+    "TopLogprob",
     "llm",
 ]

@@ -1,0 +1,16 @@
+nickname: gemini_3_1_pro
+name: Gemini 3.1 Pro
+provider: gemini_vertex
+model_name: gemini-3.1-pro-preview
+thinking: true
+thinking_level: MEDIUM
+ctx_length: 1000000
+project_id: gcp-nssa-ml
+location: global
+pricing:
+  input: "$2.00 per 1M tokens"
+  output: "$12.00 per 1M tokens"
+source_url: https://cloud.google.com/vertex-ai/generative-ai/pricing
+verified: 2026-11-03
+notes: >-
+  Prompts over 200K tokens are billed at $4.00 / $18.00 per 1M tokens.

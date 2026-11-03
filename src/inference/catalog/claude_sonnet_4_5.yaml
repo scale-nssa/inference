@@ -3,6 +3,17 @@ name: Claude Sonnet 4.5
 provider: claude_vertex
 model_name: claude-sonnet-4-5@20250929
 thinking: true
+thinking_budget: 1024
 ctx_length: 200000
+max_tokens: 8192
 project_id: gcp-nssa-ml
 location: global
+pricing:
+  input: "$3.00 per 1M tokens"
+  output: "$15.00 per 1M tokens"
+source_url: https://cloud.google.com/model-garden/partner-models/pricing
+verified: 2026-11-03
+notes: >-
+  Doesn't support adaptive thinking, so it uses budgeted thinking (1024 tokens) and has
+  no effort setting. Prompts of 200K tokens or more are billed at $6.00 / $22.50 per 1M
+  tokens.

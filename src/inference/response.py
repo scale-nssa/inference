@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pydantic import BaseModel, ConfigDict
 
+from .logprobs import TokenLogprob
 from .prompt import Prompt
 from .provider_responses import ProviderResponse
 from .token_stats import TokenStats
@@ -17,6 +18,7 @@ class Response(BaseModel):
     input_tokens: int
     output_tokens: int
     thinking_tokens: int | None = None
+    logprobs: tuple[TokenLogprob, ...] | None = None
 
     def __str__(self) -> str:
         return self.text
@@ -32,6 +34,7 @@ class LLMOutput(BaseModel):
     thinking: str | None
     tokens: TokenStats
     provider_response: ProviderResponse
+    logprobs: tuple[TokenLogprob, ...] | None = None
 
     def __str__(self) -> str:
         return self.text
@@ -43,4 +46,5 @@ class LLMOutput(BaseModel):
             input_tokens=self.tokens.input_tokens,
             output_tokens=self.tokens.output_tokens,
             thinking_tokens=self.tokens.thinking_tokens,
+            logprobs=self.logprobs,
         )

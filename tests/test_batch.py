@@ -126,7 +126,7 @@ def test_gemini_batch_input_jsonl_matches_vertex_schema() -> None:
                 ],
                 "generationConfig": {
                     "temperature": 0.8,
-                    "thinkingConfig": {"includeThoughts": True},
+                    "thinkingConfig": {"includeThoughts": True, "thinkingLevel": "MEDIUM"},
                 },
                 "systemInstruction": {
                     "role": "system",
@@ -159,6 +159,31 @@ def test_gemini_batch_includes_max_output_tokens_when_set() -> None:
     assert rows[0]["request"]["generationConfig"] == {
         "temperature": 0.8,
         "maxOutputTokens": 2048,
+    }
+
+
+def test_gemini_batch_includes_explicit_thinking_level() -> None:
+    model = GeminiVertexModel(
+        nickname="gemini",
+        name="Gemini",
+        model_name="gemini-3.5-flash-lite",
+        thinking=True,
+        thinking_level="MEDIUM",
+        ctx_length=1000000,
+    )
+
+    rows = _jsonl_rows(
+        format_input_jsonl(
+            provider="gemini_vertex",
+            prompts=[Prompt(system_prompt=None, model_prompt="Say alpha.")],
+            model=model,
+            settings=model._settings(None, None),
+        )
+    )
+
+    assert rows[0]["request"]["generationConfig"]["thinkingConfig"] == {
+        "includeThoughts": True,
+        "thinkingLevel": "MEDIUM",
     }
 
 
@@ -335,10 +360,13 @@ def test_batch_submit_uses_aiplatform_and_storage_clients(
         def __init__(self, name: str) -> None:
             self.name = name
 
-        def upload_from_string(self, data: bytes, content_type: str) -> None:
+        def upload_from_string(
+            self, data: bytes, content_type: str, timeout: float
+        ) -> None:
             uploaded["name"] = self.name
             uploaded["data"] = data
             uploaded["content_type"] = content_type
+            uploaded["timeout"] = timeout
 
     class FakeBucket:
         def __init__(self, name: str) -> None:
@@ -393,6 +421,7 @@ def test_batch_submit_uses_aiplatform_and_storage_clients(
     assert uploaded["bucket"] == "bucket"
     assert uploaded["name"] == "prefix/test-job-abc123def456/input/requests.jsonl"
     assert uploaded["content_type"] == "application/jsonl"
+    assert uploaded["timeout"] == 60.0
     assert created["client_options"] == {"api_endpoint": "us-east5-aiplatform.googleapis.com"}
     assert created["parent"] == "projects/p/locations/us-east5"
     created_job = created["job"]
@@ -410,7 +439,7 @@ def test_batch_submit_uses_aiplatform_and_storage_clients(
     os.environ.get("INFERENCE_RUN_BATCH_E2E") != "1",
     reason="set INFERENCE_RUN_BATCH_E2E=1 to run billable Vertex batch smoke tests",
 )
-@pytest.mark.parametrize("model_name", ["claude_sonnet_4_6", "gemini_3_flash"])
+@pytest.mark.parametrize("model_name", ["claude_sonnet_4_6", "gemini_3_5_flash"])
 def test_vertex_batch_e2e_smoke(model_name: str) -> None:
     prompts = [
         Prompt(

@@ -10,6 +10,7 @@ from typing import Any
 
 import yaml
 
+from .model_card import ModelCard
 from .prompt import Prompt
 from .providers import PROVIDERS, Model
 from .response import LLMOutput
@@ -99,6 +100,22 @@ def call(
 ) -> LLMOutput:
     """Call a model and return the full typed response (including provider payload)."""
     return model.call(prompt, temperature=temperature, max_tokens=max_tokens)
+
+
+def card(name: str) -> ModelCard:
+    """Resolve `name` and return its metadata-only :class:`ModelCard`.
+
+    Uses the same matching rules as :func:`from_name` (exact nickname →
+    model_name → normalized → unique substring), but reads the catalog only: it
+    constructs no provider client, makes no network calls, and needs no API
+    credentials. The catalog is the source of truth for model cards.
+    """
+    return ModelCard.from_entry(_resolve(name))
+
+
+def cards() -> list[ModelCard]:
+    """Return every catalog entry as a :class:`ModelCard`, sorted by nickname."""
+    return [ModelCard.from_entry(entry) for _, entry in sorted(_catalog().items())]
 
 
 def _normalize(s: str) -> str:

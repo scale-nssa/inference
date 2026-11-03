@@ -1,8 +1,0 @@
-nickname: qwen3_0_6b_mlx
-name: Qwen3 0.6B (MLX)
-provider: lm_studio
-model_name: qwen3-0.6b-mlx
-thinking: false
-ctx_length: 40960
-system_role: system
-thinking_style: think_tag

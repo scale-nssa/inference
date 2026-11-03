@@ -1,0 +1,962 @@
+{
+  "claude_haiku_4_5": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "msg_vrtx_011Cggoo9y8qgXutTeMCwLsz",
+        "msg_vrtx_011CggooEfuoDrTUVjRrUtwF"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 1.3,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        48,
+        44,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "budget/1024",
+    "price": {
+      "catalog": [
+        1.0,
+        5.0
+      ],
+      "found": [
+        1.0,
+        5.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Haiku 4.5': input $1, output $5"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "42",
+        "42",
+        "42",
+        "42",
+        "42"
+      ],
+      "at_1": [
+        "42",
+        "42",
+        "42",
+        "42",
+        "42"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "claude_haiku_5_5": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.2,
+      "text": "Pong",
+      "thinking_text": false,
+      "tokens": [
+        23,
+        5,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        0.1,
+        0.5
+      ],
+      "found": [
+        0.1,
+        0.5
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Haiku 5.5': input $0.1, output $0.5"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonCRws3HEJzMpJSLA8'}",
+    "verified": "2026-11-03"
+  },
+  "claude_opus_4_8": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.4,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        21,
+        4,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        5.0,
+        25.0
+      ],
+      "found": [
+        5.0,
+        25.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Opus 4.8': input $5, output $25"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonBk1k6WJzBKAtLSe1'}",
+    "verified": "2026-11-03"
+  },
+  "claude_opus_5": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.4,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        21,
+        4,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        5.0,
+        25.0
+      ],
+      "found": [
+        5.0,
+        25.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Opus 5': input $5, output $25"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonBpyThwX7BdDGvx94'}",
+    "verified": "2026-11-03"
+  },
+  "claude_opus_5_5": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.4,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        23,
+        4,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        4.0,
+        20.0
+      ],
+      "found": [
+        4.0,
+        20.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Opus 5.5': input $4, output $20"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonCcraYf5Tge2hdahz'}",
+    "verified": "2026-11-03"
+  },
+  "claude_sonnet_4_5": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "msg_vrtx_011CggooUNR55VgME7A1ANr3",
+        "msg_vrtx_011CggooaupXUcqAodeBdN1x"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 2.1,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        48,
+        66,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "budget/1024",
+    "price": {
+      "catalog": [
+        3.0,
+        15.0
+      ],
+      "found": [
+        3.0,
+        15.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Sonnet 4.5': input $3, output $15"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "47",
+        "47",
+        "47",
+        "47",
+        "47"
+      ],
+      "at_1": [
+        "47",
+        "47",
+        "47",
+        "47",
+        "47"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "claude_sonnet_4_6": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "msg_vrtx_011CggooaHrt6Badj3xthmJs",
+        "msg_vrtx_011CggoofDHf75DVtuJRzEUj"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 1.3,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        19,
+        5,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        3.0,
+        15.0
+      ],
+      "found": [
+        3.0,
+        15.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Sonnet 4.6': input $3, output $15"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "47",
+        "47",
+        "47",
+        "47",
+        "47"
+      ],
+      "at_1": [
+        "47",
+        "47",
+        "47",
+        "47",
+        "47"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "claude_sonnet_5": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.2,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        21,
+        4,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        2.0,
+        10.0
+      ],
+      "found": [
+        2.0,
+        10.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Claude Sonnet 5': input $2, output $10"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonMrirm9Z5JAjvBuQH'}",
+    "verified": "2026-11-03"
+  },
+  "claude_sonnet_5_5": {
+    "cache": null,
+    "call": {
+      "ok": true,
+      "seconds": 1.2,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        23,
+        4,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "adaptive/medium",
+    "price": {
+      "catalog": [
+        2.0,
+        10.0
+      ],
+      "found": [
+        2.0,
+        10.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [Anthropic\u2019s Claude models] row 'Sonnet 5.5': input $2, output $10"
+    },
+    "temperature": "rejected: BadRequestError: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': '`temperature` is deprecated for this model.'}, 'request_id': 'req_vrtx_011CggonNYePh9tcahJPhQAG'}",
+    "verified": "2026-11-03"
+  },
+  "gemini_3_1_flash_lite": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "bGTqapGQNPO6odAPoou2-QM",
+        "b2TqarmOG_KqodAPjb6rmAE"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 2.5,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        59
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.25,
+        1.5
+      ],
+      "found": [
+        0.25,
+        1.5
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.1 Flash-Lite': input $0.25, output $1.5"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "42",
+        "42",
+        "73",
+        "73",
+        "73"
+      ],
+      "at_1.5": [
+        "42",
+        "42",
+        "42",
+        "42",
+        "42"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_3_1_pro": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "k2TqapfzLL6EzLEPl7CguQE",
+        "mGTqaqOwMqbOodAPs6GI0Qs"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 8.6,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        135
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        2.0,
+        12.0
+      ],
+      "found": [
+        2.0,
+        12.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.1 Pro Preview': input $2, output $12"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "73",
+        "73",
+        "42",
+        "42",
+        "73"
+      ],
+      "at_1.5": [
+        "73",
+        "73",
+        "73",
+        "73",
+        "73"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_3_5_flash": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "b2TqaraqGNDTodAP0b-32AU",
+        "cWTqauXUO6Og6tkPsKfuwQ8"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 3.7,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        82
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        1.5,
+        9.0
+      ],
+      "found": [
+        1.5,
+        9.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.5 Flash': input $1.5, output $9"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "73",
+        "73",
+        "73",
+        "73",
+        "73"
+      ],
+      "at_1.5": [
+        "73",
+        "42",
+        "42",
+        "37",
+        "73"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_3_5_flash_lite": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "eWTqasmaN5uvodAP39LboQc",
+        "fWTqavaKG9yi6tkP8ans2Aw"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 3.3,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        106
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.3,
+        2.5
+      ],
+      "found": [
+        0.3,
+        2.5
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.5 Flash-Lite': input $0.3, output $2.5"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "73",
+        "42",
+        "42",
+        "42",
+        "42"
+      ],
+      "at_1.5": [
+        "42",
+        "73",
+        "42",
+        "42",
+        "42"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_3_6_flash": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "gmTqasuQE5uvodAP39LboQc",
+        "hWTqapfZJb6EzLEPl7CguQE"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 3.2,
+      "text": "Pong.",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        89
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.75,
+        3.75
+      ],
+      "found": [
+        0.75,
+        3.75
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.6 Flash *through December 31, 2026': input $0.75, output $3.75"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "42",
+        "67",
+        "42",
+        "42",
+        "73"
+      ],
+      "at_1.5": [
+        "37",
+        "73",
+        "73",
+        "42",
+        "42"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_3_8_flash": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "kmTqasWzN62EzLEPntHrgQM",
+        "lWTqav-KJ9yi6tkP8ans2Aw"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 3.7,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        9,
+        1,
+        77
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.75,
+        3.75
+      ],
+      "found": [
+        0.75,
+        3.75
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 3] row 'Gemini 3.8 Flash*through December 31, 2026': input $0.75, output $3.75"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "47",
+        "47",
+        "73",
+        "42",
+        "42"
+      ],
+      "at_1.5": [
+        "73",
+        "73",
+        "73",
+        "47",
+        "42"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gemini_4_argon": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "qGTqatu_OqbOodAPs6GI0Qs",
+        "rGTqapLNG7b0odAPq4vRgA8"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 3.3,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        45,
+        5,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        2.0,
+        10.0
+      ],
+      "found": [
+        2.0,
+        10.0
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/vertex-ai/generative-ai/pricing [Gemini 4] row 'Gemini 4 Argon*through November 30, 2026': input $2, output $10"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "84",
+        "73",
+        "73",
+        "73",
+        "73"
+      ],
+      "at_1.5": [
+        "73",
+        "73",
+        "73",
+        "42",
+        "73"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "gpt_oss_120b_vertex": {
+    "cache": {
+      "cached": false,
+      "ids": [
+        "17bdd9b2-7932-4722-a838-90dd23cc5839",
+        "42567646-31f2-4bd8-8cec-817e505418b1"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 0.5,
+      "text": "pong",
+      "thinking_text": true,
+      "tokens": [
+        83,
+        31,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.09,
+        0.36
+      ],
+      "found": [
+        0.09,
+        0.36
+      ],
+      "ok": true,
+      "source": "pricing page: https://cloud.google.com/model-garden/partner-models/pricing [OpenAI's models] row 'gpt-oss-120b': input $0.09, output $0.36"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "73",
+        "57",
+        "57",
+        "73",
+        "73"
+      ],
+      "at_1.5": [
+        "57",
+        "73",
+        "73",
+        "73",
+        "73"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "stanford_deepseek_v3_2": {
+    "cache": {
+      "cached": true,
+      "ids": [
+        "5e6883e6b8e64695b565005431f2b237",
+        "5e6883e6b8e64695b565005431f2b237"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 16.4,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        15,
+        3,
+        null
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": null,
+    "price": {
+      "catalog": [
+        0.0,
+        0.0
+      ],
+      "found": [
+        0.0,
+        0.0
+      ],
+      "ok": true,
+      "source": "usage API, measured (spent $0.0000)"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "74",
+        "74",
+        "73",
+        "73",
+        "74"
+      ],
+      "at_1.5": [
+        "78",
+        "57",
+        "74",
+        "37",
+        "76"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "stanford_gpt_5_6_luna": {
+    "cache": {
+      "cached": true,
+      "ids": [
+        "chatcmpl-EgHc8zd6uOyt3paedn8nMhlNjZBvX",
+        "chatcmpl-EgHc8zd6uOyt3paedn8nMhlNjZBvX"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 18.6,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        19,
+        4,
+        0
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        0.25,
+        0.6
+      ],
+      "found": [
+        0.25,
+        0.599
+      ],
+      "ok": true,
+      "source": "usage API, measured (spent $0.0148)"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "57",
+        "73",
+        "73",
+        "73",
+        "47"
+      ],
+      "at_1.5": [
+        "47",
+        "73",
+        "47",
+        "73",
+        "37"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "stanford_gpt_5_6_sol": {
+    "cache": {
+      "cached": true,
+      "ids": [
+        "chatcmpl-EgHcJdbEf8B7P388gjCxnpmzDeMt2",
+        "chatcmpl-EgHcJdbEf8B7P388gjCxnpmzDeMt2"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 11.4,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        19,
+        4,
+        0
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        5.0,
+        15.0
+      ],
+      "found": [
+        4.9979,
+        14.9126
+      ],
+      "ok": true,
+      "source": "usage API, measured (spent $0.0412)"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "73",
+        "73",
+        "47",
+        "47",
+        "47"
+      ],
+      "at_1.5": [
+        "47",
+        "47",
+        "47",
+        "47",
+        "47"
+      ]
+    },
+    "verified": "2026-11-03"
+  },
+  "stanford_gpt_5_6_terra": {
+    "cache": {
+      "cached": true,
+      "ids": [
+        "chatcmpl-EgHo2bbpmjxtAs0KI5VMCnc88ffac",
+        "chatcmpl-EgHo2bbpmjxtAs0KI5VMCnc88ffac"
+      ]
+    },
+    "call": {
+      "ok": true,
+      "seconds": 2.9,
+      "text": "pong",
+      "thinking_text": false,
+      "tokens": [
+        46,
+        4,
+        0
+      ]
+    },
+    "checked": "2026-11-03",
+    "effort": "medium",
+    "price": {
+      "catalog": [
+        2.5,
+        6.0
+      ],
+      "found": [
+        2.4994,
+        5.9802
+      ],
+      "ok": true,
+      "source": "usage API, measured (spent $0.0427)"
+    },
+    "temperature": "accepted",
+    "temperature_samples": {
+      "at_0": [
+        "57",
+        "73",
+        "57",
+        "57",
+        "47"
+      ],
+      "at_1.5": [
+        "73",
+        "73",
+        "73",
+        "57",
+        "47"
+      ]
+    },
+    "verified": "2026-11-03"
+  }
+}

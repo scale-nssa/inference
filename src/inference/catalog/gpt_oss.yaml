@@ -1,8 +1,0 @@
-nickname: gpt_oss
-name: GPT-OSS
-provider: lm_studio
-model_name: openai/gpt-oss-20b
-thinking: true
-ctx_length: 128000
-system_role: developer
-thinking_style: reasoning_attr

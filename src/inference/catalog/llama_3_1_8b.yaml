@@ -1,8 +1,0 @@
-nickname: llama_3_1_8b
-name: Llama 3.1 8B Instruct
-provider: lm_studio
-model_name: meta-llama-3.1-8b-instruct
-thinking: false
-ctx_length: 131072
-system_role: system
-thinking_style: none

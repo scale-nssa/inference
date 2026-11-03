@@ -1,8 +1,0 @@
-nickname: gemini_3_pro
-name: Gemini 3 Pro
-provider: gemini_vertex
-model_name: gemini-3.1-pro-preview
-thinking: true
-ctx_length: 1000000
-project_id: gcp-nssa-ml
-location: global

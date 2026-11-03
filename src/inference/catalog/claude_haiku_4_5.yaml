@@ -1,0 +1,19 @@
+nickname: claude_haiku_4_5
+name: Claude Haiku 4.5
+provider: claude_vertex
+model_name: claude-haiku-4-5
+thinking: true
+thinking_budget: 1024
+ctx_length: 200000
+temperature: 0.0
+max_tokens: 8192
+project_id: gcp-nssa-ml
+location: global
+pricing:
+  input: "$1.00 per 1M tokens"
+  output: "$5.00 per 1M tokens"
+source_url: https://cloud.google.com/model-garden/partner-models/pricing
+verified: 2026-11-03
+notes: >-
+  Doesn't support adaptive thinking, so it uses budgeted thinking (1024 tokens) and has
+  no effort setting.

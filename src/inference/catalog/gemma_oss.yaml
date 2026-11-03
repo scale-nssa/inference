@@ -1,8 +1,0 @@
-nickname: gemma_oss
-name: Gemma OSS
-provider: lm_studio
-model_name: google/gemma-3-27b
-thinking: false
-ctx_length: 128000
-system_role: system
-thinking_style: none

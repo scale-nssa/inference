@@ -1,5 +1,5 @@
 from google import genai
-from google.genai.types import GenerateContentConfig, ThinkingConfig
+from google.genai.types import GenerateContentConfig, ThinkingConfig, ThinkingLevel
 
 from .._dump import dump_provider_response
 from ..prompt import Prompt
@@ -13,6 +13,7 @@ from .base import Model
 class GeminiVertexModel(Model):
     project_id: str = "gcp-nssa-ml"
     location: str = "global"
+    thinking_level: ThinkingLevel | None = ThinkingLevel.MEDIUM
 
     def _call(self, prompt: Prompt, settings: InferenceSettings) -> LLMOutput:
         client = genai.Client(
@@ -29,7 +30,10 @@ class GeminiVertexModel(Model):
             config_kwargs["max_output_tokens"] = settings.max_tokens
         config = GenerateContentConfig(**config_kwargs)
         if self.thinking:
-            config.thinking_config = ThinkingConfig(include_thoughts=True)
+            config.thinking_config = ThinkingConfig(
+                include_thoughts=True,
+                thinking_level=self.thinking_level,
+            )
 
         response = client.models.generate_content(
             model=self.model_name,
@@ -40,11 +44,17 @@ class GeminiVertexModel(Model):
         cot: str | None = None
         text = ""
         if self.thinking:
-            for part in response.candidates[0].content.parts:
-                if part.thought:
-                    cot = part.text
-                else:
-                    text = part.text
+            candidate = response.candidates[0] if response.candidates else None
+            content = candidate.content if candidate else None
+            parts = content.parts if content else None
+            if parts:
+                for part in parts:
+                    if part.thought:
+                        cot = part.text
+                    else:
+                        text = part.text
+            else:
+                text = response.text or ""
         else:
             text = response.text
 
@@ -54,8 +64,10 @@ class GeminiVertexModel(Model):
             text=text,
             thinking=cot,
             tokens=TokenStats(
-                input_tokens=usage.prompt_token_count,
-                output_tokens=usage.candidates_token_count,
+                # Vertex omits candidates_token_count when the reply is empty (e.g.
+                # all output went to thinking); batch parsing applies the same default.
+                input_tokens=usage.prompt_token_count or 0,
+                output_tokens=usage.candidates_token_count or 0,
                 thinking_tokens=usage.thoughts_token_count,
             ),
             provider_response=GeminiGenerateResponse.model_validate(

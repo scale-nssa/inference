@@ -1,8 +1,0 @@
-nickname: gemma3_1b
-name: Gemma 3 1B
-provider: lm_studio
-model_name: google/gemma-3-1b
-thinking: false
-ctx_length: 32768
-system_role: system
-thinking_style: none

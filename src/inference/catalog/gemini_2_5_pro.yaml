@@ -1,8 +1,0 @@
-nickname: gemini_2_5_pro
-name: Gemini 2.5 Pro
-provider: gemini_vertex
-model_name: gemini-2.5-pro
-thinking: true
-ctx_length: 1048576
-project_id: gcp-nssa-ml
-location: us-central1

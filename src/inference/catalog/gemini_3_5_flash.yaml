@@ -3,7 +3,13 @@ name: Gemini 3.5 Flash
 provider: gemini_vertex
 model_name: gemini-3.5-flash
 thinking: true
+thinking_level: MEDIUM
 ctx_length: 1000000
 temperature: 0.0
 project_id: gcp-nssa-ml
 location: global
+pricing:
+  input: "$1.50 per 1M tokens"
+  output: "$9.00 per 1M tokens"
+source_url: https://cloud.google.com/vertex-ai/generative-ai/pricing
+verified: 2026-11-03

@@ -1,8 +1,0 @@
-nickname: gemma4_26b_q2
-name: Gemma 4 26B A4B (Q2_K_S)
-provider: lm_studio
-model_name: gemma-4-26b-a4b-i1@q2_k_s
-thinking: false
-ctx_length: 262144
-system_role: system
-thinking_style: none
