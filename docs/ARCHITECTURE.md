@@ -129,5 +129,5 @@ updating those assertions. The two live (billable) batch tests are skipped unles
 - User-facing types (`Prompt`, `Response`, `LLMOutput`, `Model` subclasses, batch
   types) are frozen pydantic models.
 - `Prompt` is `system_prompt: str | None` plus `model_prompt: str`.
-- The package uses a `src/` layout; the catalog directory is force-included in the
-  wheel (`pyproject.toml`).
+- The package uses a `src/` layout. The catalog lives inside the package
+  (`src/inference/catalog/`), so it ships in the wheel with no extra build config.
